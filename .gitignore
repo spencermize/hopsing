@@ -1,3 +1,5 @@
+# Don't commit vendor files (manage via Composer)
+vendor/
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
