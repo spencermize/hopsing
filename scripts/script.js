@@ -4,18 +4,12 @@ $app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('//');
 });
 $app.controller('TypeaheadCtrl', function($scope, $http) {
+  $scope.asyncSelected = undefined;  
+  $scope.getKegs = function(val) {
+	return $http.get('http://localhost/api/kegs', {
 
-  $scope.selected = undefined;
-  
-  $scope.getLocation = function(val) {
-    return $http.get('http://localhost/api/kegs', {
-
-    }).then(function(response){
-
-      return response.data.map(function(item){
-		  console.log("!");
-        return item.name;
-      });
+		}).then(function(response){
+		return response.data.results;
     });
-  };
-});
+  }
+})

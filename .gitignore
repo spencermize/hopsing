@@ -1,5 +1,9 @@
 # Don't commit vendor files (manage via Composer)
 vendor/
+
+# SASS Cache
+styles/scss_cache/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

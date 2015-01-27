@@ -7,6 +7,7 @@
 		"leafo/scssphp": "dev-master",
 		"twig/twig": "1.18.*@dev",
 		"entomb/slim-json-api": "dev-master",
-		"angular-ui/bootstrap": "dev-master"
+		"components/jquery": "*",
+		"components/angular.js": "*"
 	}
 }

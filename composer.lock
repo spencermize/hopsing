@@ -4,48 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1555c74255351f5c2e15152245791cda",
+    "hash": "32371d58c5fddb4df6958b24a66f15c5",
     "packages": [
-        {
-            "name": "angular-ui/bootstrap",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/grisendo/bootstrap.git",
-                "reference": "77174b69f0bf7286f3e0bf1887b65ec0f61c20da"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/grisendo/bootstrap/zipball/77174b69f0bf7286f3e0bf1887b65ec0f61c20da",
-                "reference": "77174b69f0bf7286f3e0bf1887b65ec0f61c20da",
-                "shasum": ""
-            },
-            "require": {
-                "components/angular.js": "*",
-                "components/jquery": "*",
-                "twitter/bootstrap": "*"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "ui-bootstrap.js",
-                        "ui-bootstrap-tpls.js"
-                    ],
-                    "files": [
-                        "ui-bootstrap.min.js",
-                        "ui-bootstrap-tpls.min.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Native AngularJS (Angular) directives for Twitter's Bootstrap",
-            "homepage": "http://angular-ui.github.io/bootstrap/",
-            "time": "2014-08-22 11:32:43"
-        },
         {
             "name": "components/angular.js",
             "version": "1.3.0",
@@ -744,57 +704,6 @@
                 "templating"
             ],
             "time": "2015-01-25 17:35:14"
-        },
-        {
-            "name": "twitter/bootstrap",
-            "version": "v3.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "bcf7dd38b5ab180256e2e4fb5da0369551b3f082"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/bcf7dd38b5ab180256e2e4fb5da0369551b3f082",
-                "reference": "bcf7dd38b5ab180256e2e4fb5da0369551b3f082",
-                "shasum": ""
-            },
-            "replace": {
-                "twitter/bootstrap": "self.version"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jacob Thornton",
-                    "email": "jacobthornton@gmail.com"
-                },
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "homepage": "http://getbootstrap.com",
-            "keywords": [
-                "JS",
-                "css",
-                "framework",
-                "front-end",
-                "less",
-                "mobile-first",
-                "responsive",
-                "web"
-            ],
-            "time": "2015-01-19 17:03:09"
         }
     ],
     "packages-dev": [],
@@ -806,8 +715,7 @@
         "twbs/bootstrap-sass": 20,
         "leafo/scssphp": 20,
         "twig/twig": 20,
-        "entomb/slim-json-api": 20,
-        "angular-ui/bootstrap": 20
+        "entomb/slim-json-api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

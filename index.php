@@ -19,7 +19,7 @@ $app->group('/api','APIrequest',function() use($app){
 		if($id==-1){
 			$kegs = R::findAll( 'keg' );
 			$kegs = R::exportAll( $kegs );
-			$app->render(200,$kegs);
+			$app->render(200,array("results" => $kegs));
 		}else{
 			$keg = R::load( 'keg', $id );
 			if($keg->ID){
