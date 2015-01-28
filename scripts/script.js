@@ -13,3 +13,17 @@ $app.controller('TypeaheadCtrl', function($scope, $http) {
     });
   }
 })
+$app.controller('KegCreate',function($scope,$http) {
+	$scope.postKegs = function(val){
+		return $http({
+			method: 'post',
+			url: '/api/kegs',
+			data: "name="+$scope.newKeg.name+"&abv="+$scope.newKeg.abv+"&type=" +$scope.newKeg.type,
+			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
+		}).then(function(response){
+			
+		});
+		
+	}
+	
+});

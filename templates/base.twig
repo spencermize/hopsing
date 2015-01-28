@@ -6,13 +6,14 @@
 			{% include 'nav.twig' %}
 		{% endblock %}
 		{% block content %}
-			<div class="form-group has-feedback col-md-6" ng-controller="TypeaheadCtrl">
-				<h4>Asynchronous results</h4>
-				<pre>Model: // asyncSelected | json //</pre>
-				<label class="control-label" for="kegSearch">Search:</label>
-				<input name="kegSearch" id="kegSearch" type="text" ng-model="asyncSelected" placeholder="Lookup a beer, baby!" typeahead="result as result.name for result in getKegs($viewValue) | filter: $viewValue" typeahead-loading="loadingLocations" class="form-control">
-				<span ng-show="loadingLocations" class="glyphicon glyphicon-refresh form-control-feedback"></span>
-			</div>
+<form class="col-md-6" ng-controller="KegCreate" ng-submit="postKegs()">
+	<pre>Model: // newKeg | json //</pre>
+	<h1>Let's add a keg!</h1>
+	<input type="text" class="form-control" ng-model="newKeg.name" placeholder="Beer Name">
+	<input type="number" class="form-control" ng-model="newKeg.abv" placeholder="6.5">
+	<input type="text" class="form-control" ng-model="newKeg.type" placeholder="Type">
+	<input type="submit" class="form-control btn btn-primary">
+</form>
 		{% endblock %}
 		<footer id="footer">
 			{% include 'footer.twig' %}

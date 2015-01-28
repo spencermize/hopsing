@@ -1,0 +1,7 @@
+<div class="form-group has-feedback col-md-6" ng-controller="TypeaheadCtrl">
+	<h4>Asynchronous results</h4>
+	<pre>Model: // asyncSelected | json //</pre>
+	<label class="control-label" for="kegSearch">Search:</label>
+	<input name="kegSearch" id="kegSearch" type="text" ng-model="asyncSelected" placeholder="Lookup a beer, baby!" typeahead="result as result.name for result in getKegs($viewValue) | filter: $viewValue" typeahead-loading="loadingLocations" class="form-control">
+	<span ng-show="loadingLocations" class="glyphicon glyphicon-refresh form-control-feedback"></span>
+</div>
