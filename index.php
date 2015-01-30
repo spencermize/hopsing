@@ -1,7 +1,27 @@
 <?php
 require 'vendor/autoload.php';
 require_once('vendor/gabordemooij/redbean/rb.php');
-$app = new \Slim\Slim(array('view' => new \Slim\Views\Twig()));
+require_once('lib/auth.php');
+
+use JeremyKendall\Password\PasswordValidator;
+use JeremyKendall\Slim\Auth\Adapter\Db\PdoAdapter;
+use JeremyKendall\Slim\Auth\Bootstrap;
+
+$db = new \PDO('mysql:host=localhost;dbname=hopsex','root','');
+$adapter = new PdoAdapter(
+    $db, 
+    'users', 
+    'username', 
+    'password', 
+    new PasswordValidator()
+);
+
+$app = new \Slim\Slim(array(
+	'view' => new \Slim\Views\Twig(),
+	'cookies.encrypt' => true,
+	'cookies.secret_key' => 'Th!s is @n @maz!ngly L0ng 3ncrypti0n k3Y!',
+));
+
 $app->response->headers->set('Content-Type', 'text/html;charset=utf8');
 R::setup('mysql:host=localhost;dbname=hopsex',
         'root','');
