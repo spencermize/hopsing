@@ -7,7 +7,6 @@
 		"leafo/scssphp": "dev-master",
 		"twig/twig": "1.18.*@dev",
 		"entomb/slim-json-api": "dev-master",
-		"jeremykendall/slim-auth": "dev-master",
 		"components/jquery": "*",
 		"components/angular.js": "*",
 		"google/apiclient": "1.1.*@dev"

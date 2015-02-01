@@ -1,36 +1,29 @@
 <?php
 require 'vendor/autoload.php';
 require_once('vendor/gabordemooij/redbean/rb.php');
-require_once('lib/auth.php');
 require_once('lib/brewerydb.php');
-
-use JeremyKendall\Password\PasswordValidator;
-use JeremyKendall\Slim\Auth\Adapter\Db\PdoAdapter;
-use JeremyKendall\Slim\Auth\Bootstrap;
-
-$db = new \PDO('mysql:host=localhost;dbname=hopsex','root','');
-$adapter = new PdoAdapter(
-    $db, 
-    'user', 
-    'username', 
-    'password', 
-    new PasswordValidator()
-);
 
 $app = new \Slim\Slim(array(
 	'view' => new \Slim\Views\Twig(),
 	'cookies.encrypt' => true,
-	'cookies.secret_key' => 'Th!s is @n @maz!ngly L0ng 3ncrypti0n k3Y!',
+	'cookies.lifetime' => "2 days", // = 1 day
+    'cookies.secret_key' => 'This is a $uper M@g!c K3y',
+    'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+    'cookies.cipher_mode' => MCRYPT_MODE_CBC
 ));
-$acl = new \HopsEx\Acl();
-$authBootstrap = new Bootstrap($app, $adapter, $acl);
-$authBootstrap->bootstrap();
-
-$app->add(new \Slim\Middleware\SessionCookie());
 
 $app->response->headers->set('Content-Type', 'text/html;charset=utf8');
 R::setup('mysql:host=localhost;dbname=hopsex',
         'root','');
+
+$app->hook('slim.before.dispatch', function() use ($app) { 
+   $id = $app->getCookie('_hopsauth');
+   if($id){
+      $user = R::load( 'user', $id );
+	  $app->view()->setData('user', $user);
+   }
+});
+		
 $app->group('/api','APIrequest',function() use($app){
         //this request will have full json responses
 	$app->get('/', function () use($app){
@@ -90,10 +83,15 @@ $app->group('/api','APIrequest',function() use($app){
 $app->get('/', function () {
 	makePage();
 });
-$app->get('/login',function(){
-	require '/lib/login.php';
+$app->get('/login',function() use($app){
+	$id = $app->getCookie('_hopsauth');
+	if(!$id){
+		require '/lib/login.php';		
+	}else{
+		$app->redirect("/");		
+	}
 });
-$app->get('/logout',function(){
+$app->get('/logout',function() use($app){
 	require '/lib/logout.php';
 });
 $app->get('/:id',function($id){

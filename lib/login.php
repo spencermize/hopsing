@@ -1,4 +1,5 @@
 <?php
+
 ########## Google Settings.. Client ID, Client Secret from https://cloud.google.com/console #############
 $google_client_id       = '394993466159-smtdupnd8tnkhjfcp72uq1mvfo81b6fn.apps.googleusercontent.com';
 $google_client_secret   = 'AOt--W8da1YUSAYHsN2bH3Qz';
@@ -20,8 +21,7 @@ $oAuth2 = new Google_Service_Oauth2($client);
 if (isset($_GET['code'])) {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-  header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
+//  $app->redirect("http://"  . $_SERVER['HTTP_HOST']);
 }
 
 /************************************************
@@ -63,9 +63,11 @@ if (isset($user)) {
 		$stored_user->google_id = $user["id"];
 		$stored_user->email = $user["email"];
 		$stored_user->picture = $user["picture"];
+		$stored_user->username = $user["email"];
 		$stored_user->role = "member";
 		$id = R::store($stored_user);
 	}
-	echo $id;
+	$app->setCookie("_hopsauth", $id,"2 days","/");
+	$app->redirect('http://' . $_SERVER['HTTP_HOST']);
 }
 ?>
