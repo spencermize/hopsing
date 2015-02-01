@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "14270485f4642d1a4ea9cea31c8e3914",
+    "hash": "95b86be40297630e872c583fab753cfd",
     "packages": [
         {
             "name": "components/angular.js",
@@ -440,6 +440,48 @@
                 "orm"
             ],
             "time": "2013-10-30 22:13:02"
+        },
+        {
+            "name": "google/apiclient",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/google/google-api-php-client.git",
+                "reference": "9408ef318990468a9b93477dcbc4c9360c9ebf96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/9408ef318990468a9b93477dcbc4c9360c9ebf96",
+                "reference": "9408ef318990468a9b93477dcbc4c9360c9ebf96",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Client library for Google APIs",
+            "homepage": "http://developers.google.com/api-client-library/php",
+            "keywords": [
+                "google"
+            ],
+            "time": "2015-01-30 11:26:52"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1188,7 +1230,8 @@
         "leafo/scssphp": 20,
         "twig/twig": 20,
         "entomb/slim-json-api": 20,
-        "jeremykendall/slim-auth": 20
+        "jeremykendall/slim-auth": 20,
+        "google/apiclient": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

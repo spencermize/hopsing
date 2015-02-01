@@ -1,3 +1,10 @@
 @import 'vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap.scss';
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.login-button{
+	img{
+		width: 120px;
+		height: 40px;
+	}
+}

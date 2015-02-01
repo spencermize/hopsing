@@ -9,6 +9,7 @@
 		"entomb/slim-json-api": "dev-master",
 		"jeremykendall/slim-auth": "dev-master",
 		"components/jquery": "*",
-		"components/angular.js": "*"
+		"components/angular.js": "*",
+		"google/apiclient": "1.1.*@dev"
 	}
 }

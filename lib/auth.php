@@ -1,5 +1,5 @@
 <?php
-namespace Auth;
+namespace HopsEx;
 
 use Zend\Permissions\Acl\Acl as ZendAcl;
 

@@ -3,6 +3,10 @@ vendor/
 
 # SASS Cache
 styles/scss_cache/
+*.meta
+
+# Misc Caches
+caches/
 
 # Windows image file caches
 Thumbs.db
