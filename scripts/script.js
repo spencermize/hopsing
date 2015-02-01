@@ -45,3 +45,12 @@ $app.controller('ModalMsgInstance',function($scope,$modalInstance,response){
 		$modalInstance.close();
 	};
 })
+$app.controller('BeerStyleList',function($scope,$http){
+	$http({
+		method: 'get',
+		url: '/api/styles'
+	}).success(function(response){
+		$scope.styles = response[0].data;
+//		console.log(response);
+	});
+});

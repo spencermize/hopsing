@@ -2,6 +2,7 @@
 require 'vendor/autoload.php';
 require_once('vendor/gabordemooij/redbean/rb.php');
 require_once('lib/auth.php');
+require_once('lib/brewerydb.php');
 
 use JeremyKendall\Password\PasswordValidator;
 use JeremyKendall\Slim\Auth\Adapter\Db\PdoAdapter;
@@ -10,7 +11,7 @@ use JeremyKendall\Slim\Auth\Bootstrap;
 $db = new \PDO('mysql:host=localhost;dbname=hopsex','root','');
 $adapter = new PdoAdapter(
     $db, 
-    'users', 
+    'user', 
     'username', 
     'password', 
     new PasswordValidator()
@@ -21,13 +22,15 @@ $app = new \Slim\Slim(array(
 	'cookies.encrypt' => true,
 	'cookies.secret_key' => 'Th!s is @n @maz!ngly L0ng 3ncrypti0n k3Y!',
 ));
+$acl = new \HopsEx\Acl();
+$authBootstrap = new Bootstrap($app, $adapter, $acl);
+$authBootstrap->bootstrap();
+
+$app->add(new \Slim\Middleware\SessionCookie());
 
 $app->response->headers->set('Content-Type', 'text/html;charset=utf8');
 R::setup('mysql:host=localhost;dbname=hopsex',
         'root','');
-$app->get('/', function () {
-	makePage();
-});
 $app->group('/api','APIrequest',function() use($app){
         //this request will have full json responses
 	$app->get('/', function () use($app){
@@ -51,7 +54,9 @@ $app->group('/api','APIrequest',function() use($app){
 				));
 			}
 		}
-
+	});
+	$app->get('/styles',function() use($app){
+		$app->render(200,array(brewerydb_lookup('styles')));
 	});
 	$app->post('/kegs(/:id)', function ($id = -1) use($app){
 		$vars = 'name,type,abv';
@@ -82,10 +87,25 @@ $app->group('/api','APIrequest',function() use($app){
 	});	
 });
 
-function makePage(){
+$app->get('/', function () {
+	makePage();
+});
+$app->get('/login',function(){
+	require '/lib/login.php';
+});
+$app->get('/logout',function(){
+	require '/lib/logout.php';
+});
+$app->get('/:id',function($id){
+	makePage($id . ".twig");
+});
+$app->get('/beers/:id',function($id){
+	makePage($id . ".twig");
+});
+function makePage($page = "base.twig",$vars = array()){
 	$app = \Slim\Slim::getInstance();
-	$app->view->appendData(array("style"=>"styles.php/style.scss"));	
-	$app->render("base.twig");	
+	$app->view->appendData(array("style"=>"/styles.php/style.scss"));	
+	$app->render($page,$vars);	
 }
 
 function APIrequest(){

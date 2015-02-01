@@ -6,26 +6,7 @@
 			{% include 'nav.twig' %}
 		{% endblock %}
 		{% block content %}
-<form class="col-md-6" ng-controller="KegCreate" ng-submit="postKegs()">
-	<pre>Model: // newKeg | json //</pre>
-	<h1>Let's add a keg!</h1>
-	<input type="text" class="form-control" ng-model="newKeg.name" placeholder="Beer Name">
-	<input type="number" class="form-control" ng-model="newKeg.abv" placeholder="6.5">
-	<input type="text" class="form-control" ng-model="newKeg.type" placeholder="Type">
-	<input type="submit" class="form-control btn btn-primary">
-	
-    <script type="text/ng-template" id="ModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">// title //</h3>
-        </div>
-        <div class="modal-body">
-			// msg //
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-        </div>
-    </script>
-</form>
+
 		{% endblock %}
 		<footer id="footer">
 			{% include 'footer.twig' %}
