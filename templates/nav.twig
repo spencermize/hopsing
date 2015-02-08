@@ -1,5 +1,24 @@
-{% if user %}
-	<a href="/logout">Logout!</a>
-{% else %}
-	<a href="/login">Login!</a>
-{% endif %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">{% include "beer.svg" %}</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+		<div class="btn-group" dropdown is-open="status.isopen">
+			{% if user %}
+				<button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+					{{user.fname}} {{user.lname}} <img src="{{user.picture}}" />
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			{% else %}
+				<a class="btn btn-primary" href="/login">Login!</a>
+			{% endif %}				
+		</div>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
