@@ -3,13 +3,13 @@ $app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('//');
     $interpolateProvider.endSymbol('//');
 });
-$app.controller('TypeaheadCtrl', function($scope, $http) {
+$app.controller('BreweryDBSearch', function($scope, $http) {
   $scope.asyncSelected = undefined;  
   $scope.getKegs = function(val) {
-	return $http.get('/api/kegs', {
+	return $http.get('/api/brewsearch?q=' + val, {
 
 		}).then(function(response){
-		return response.data.results;
+		return response.data.results.data;
     });
   }
 })
@@ -28,12 +28,37 @@ $app.controller('KegCreate',function($scope,$http,$modal) {
 		{ label: 'Corny', value: 640 },
 		{ label: 'Mini', value: 169 }
 	];
-
+	$scope.onSelect = function ($item, $model, $label) {
+		$scope.newKeg.description = $item.description || "";
+		if($item.labels){
+			$scope.newKeg.label = $item.labels.large;
+		}else{
+			$scope.newKeg.label = "";
+		}
+		$scope.newKeg.abv = $item.abv;
+	};
 	$scope.postKegs = function(val){
+		var k = $scope.newKeg;
 		return $http({
 			method: 'post',
 			url: '/api/kegs',
-			data: "name="+$scope.newKeg.name + "&price=" + $scope.newKeg.price + "&size=" + $scope.newKeg.size + "&pourSize=" + $scope.newKeg.pourSize,
+			transformRequest: function(obj) {
+				var str = [];
+				for(var p in obj)
+				str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+				return str.join("&");
+			},			
+			data: {
+				bdbid: k.bdb.id,
+				abv: k.abv,
+				label: k.label,
+				style: k.bdb.style.name,
+				name: k.bdb.name,
+				description: k.description,
+				price: k.price,
+				size: k.size,
+				pourSize: k.pourSize
+			},
 			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
 		}).success(function(response){
 			$scope.response = response;

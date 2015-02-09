@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">{% include "beer.svg" %}</a>
+      <a class="navbar-brand" href="/">{% include "beer.svg" %}</a>
     </div>
       <ul class="nav navbar-nav navbar-right">
 		<div class="btn-group" dropdown is-open="status.isopen">
@@ -12,7 +12,11 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="/logout">Logout</a></li>
+					{% if user.role == "admin" %}
+						<li><a href="/add">Add a Keg</a></li>
+					{% endif %}
+				<li><a href="/kegs">Available Kegs</a><li>
+				<li><a href="/logout">Logout</a></li>
 				</ul>
 			{% else %}
 				<a class="btn btn-primary" href="/login">Login!</a>

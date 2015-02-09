@@ -1,20 +1,39 @@
 {% extends 'base.twig' %}
 {% block content %}
-<form class="col-md-6" ng-controller="KegCreate" ng-submit="postKegs()">
-	<pre>Model: // newKeg | json //</pre>
+<form class="col-md-6 form-horizontal" ng-controller="KegCreate" ng-submit="postKegs()">
 	<h1>Add a keg!</h1>
-	<input type="text" class="form-control" ng-model="newKeg.name" placeholder="Beer Name">
-	<div class="input-group">
-		<span class="input-group-addon">$</span>
-		<input type="number" class="form-control" ng-model="newKeg.price" placeholder="Keg Price">
+	<div class="form-group" ng-controller="BreweryDBSearch">
+		<label class="control-label col-sm-2" for="brewSearch">Find Beer</label>
+		<div class="input-group col-sm-10">
+			<input name="brewSearch" id="brewSearch" typeahead-on-select='onSelect($item, $model, $label)' type="text" ng-model="newKeg.bdb" typeahead-wait-ms="100" typeahead-min-length="3" placeholder="Maestro Stout" typeahead="result as result.name for result in getKegs($viewValue) | filter: $viewValue" class="form-control">
+		</div>
 	</div>
-	<select ng-init="newKeg.size = kegSizes[0].value" ng-model="newKeg.size" class="form-control">
-		<option ng-repeat="size in kegSizes" value="// size.value //"> //size.label //</option>
-	</select>
-	<select ng-init="newKeg.pourSize = sizeOptions[0].value" ng-model="newKeg.pourSize" class="form-control">
-		<option ng-repeat="size in sizeOptions" value="// size.value //"> //size.label //</option>
-	</select>
-	<input type="submit" class="form-control btn btn-primary">
+	<div class="form-group">
+		<label for"newKeg.price" class="col-sm-2 control-label">Price</label>
+		<div class="input-group col-sm-10">
+			<span class="input-group-addon">$</span>
+			<input type="number" class="form-control" ng-model="newKeg.price" placeholder="400">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="newKeg.size" class="col-sm-2 control-label">Size</label>
+		<div class="input-group col-sm-10">
+			<select ng-init="newKeg.size = kegSizes[0].value" ng-model="newKeg.size" class="form-control">
+				<option ng-repeat="size in kegSizes" value="// size.value //"> //size.label //</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="newKeg.pourSize" class="col-sm-2 control-label">Pour Size</label>
+		<div class="input-group col-sm-10">
+			<select ng-init="newKeg.pourSize = sizeOptions[0].value" ng-model="newKeg.pourSize" class="form-control">
+				<option ng-repeat="size in sizeOptions" value="// size.value //"> //size.label //</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-sm-2 pull-right">
+		<input type="submit" class="form-control btn btn-primary">
+	</div>
     <script type="text/ng-template" id="ModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">// title //</h3>

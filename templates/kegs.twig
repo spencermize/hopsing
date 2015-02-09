@@ -1,8 +1,16 @@
 {% extends 'base.twig' %}
 {% block content %}
-<ul ng-controller="KegList">
-	<li ng-repeat="keg in kegs">
-		// keg.name //
-	</li>
-</ul>
+<div class="row equal" ng-controller="KegList">
+	<div class="col-md-5 box-shadow" data-category="view" ng-repeat="keg in kegs">
+		<img class="img-responsive" src="// keg.label //">			
+		<div class="lib-row lib-header">
+			// keg.name //
+			<div class="lib-header-seperator"></div>
+		</div>
+		<div class="lib-row lib-desc">
+			<span ng-hide="keg.description == 'undefined'"><h3>Description</h3> // keg.description // </span>
+			<span ng-show="keg.style"><h3>Style</h3> // keg.style // </span>
+		</div>
+	</div>
+</div>
 {% endblock %}

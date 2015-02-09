@@ -47,6 +47,11 @@ $app->group('/api','APIrequest',function() use($app){
 			}
 		}
 	});
+	$app->get('/brewsearch',function() use($app){
+		$q = $app->request->get("q");
+		$ret = array("results" => brewerydb_lookup('search',array("q"=>$q,"type"=>"beer")));
+		$app->render(200,$ret);
+	});
 	$app->get('/styles',function() use($app){
 		$app->render(200,array(brewerydb_lookup('styles')));
 	});
@@ -54,7 +59,7 @@ $app->group('/api','APIrequest',function() use($app){
 		$msg = "";
 		$num = 200;
 		$error = false;
-		$vars = 'name,type,abv,size,pourSize';
+		$vars = 'bdbid,price,size,pourSize,name,abv,description,style,label';
 
 		if($id==-1){
 			$keg = R::dispense( 'keg' );
