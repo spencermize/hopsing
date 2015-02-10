@@ -78,9 +78,9 @@ $app.controller('KegCreate',function($scope,$http,$modal) {
     });
   };	
 });
-$app.controller('ModalMsgInstance',function($scope,$modalInstance,response){
-	$scope.title = "Success";
-	$scope.msg = response.msg;
+$app.controller('ModalMsgInstance',function($scope,$modalInstance,$sce,response){
+	$scope.title = response.title || "Success";
+	$scope.msg = $sce.trustAsHtml(response.msg);
 	$scope.ok = function () {
 		$modalInstance.close();
 	};
@@ -100,4 +100,20 @@ $app.controller('KegList',function($scope,$http){
 	}).success(function(response){
 		$scope.kegs = response.results;
 	});
+});
+$app.controller('BuyShare',function($scope,$http,$modal){
+    $scope.buy = function(){
+		var modalInstance = $modal.open({
+			templateUrl: 'ModalContent.html',
+			controller: 'ModalMsgInstance',
+			resolve: {
+				response: function(){
+					return {
+						msg: "<input type='text' class='form-control'></input>",
+						title: 'Buy a Share'
+					}
+				}
+			}
+		});	
+	}
 });

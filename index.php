@@ -68,7 +68,6 @@ $app->group('/api','APIrequest',function() use($app){
 			$size = $app->request->post("size");
 			$nshares = floor($size / $psize);
 			$shares = R::dispense("share",$nshares);
-			//print_r($shares);
 			$keg->ownShareList = $shares;
 			$id = R::store( $keg );
 			$msg = "New keg created.";

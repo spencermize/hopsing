@@ -1,16 +1,28 @@
 {% extends 'base.twig' %}
 {% block content %}
-<div class="row equal" ng-controller="KegList">
-	<div class="col-md-5 box-shadow" data-category="view" ng-repeat="keg in kegs">
-		<img class="img-responsive" src="// keg.label //">			
-		<div class="lib-row lib-header">
-			// keg.name //
-			<div class="lib-header-seperator"></div>
-		</div>
-		<div class="lib-row lib-desc">
-			<span ng-hide="keg.description == 'undefined'"><h3>Description</h3> // keg.description // </span>
-			<span ng-show="keg.style"><h3>Style</h3> // keg.style // </span>
+<div class="row" ng-controller="KegList">
+	<div class="col-sm-6 col-md-4" data-category="view" ng-repeat="keg in kegs">
+		<div class="thumbnail">
+			<img class="img-responsive" src="// keg.label //">			
+			<div class="caption" ng-controller="BuyShare">
+				<h3>// keg.name //</h3>
+				<p ng-hide="keg.description == 'undefined'">// keg.description // </p>
+				<p ng-show="keg.style"><strong>Style:</strong> // keg.style // </p>
+				<p ng-show="keg.abv"><strong>ABV:</strong> // keg.abv //% </p>				
+				<p ng-show="keg.pour_size"><strong>Pour Size:</strong> // keg.pour_size //oz </p>
+				<input type="submit" class="btn btn-primary" value="Buy Shares" ng-click="buy()"></input>
+			</div>
 		</div>
 	</div>
 </div>
+<script type="text/ng-template" id="ModalContent.html">
+	<div class="modal-header">
+		<h3 class="modal-title">// title //</h3>
+	</div>
+	<div class="modal-body" ng-bind-html="msg">
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+	</div>
+</script>
 {% endblock %}

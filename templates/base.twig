@@ -5,6 +5,7 @@
 		{% block nav %}
 			{% include 'nav.twig' %}
 		{% endblock %}
+		<div class="container-fluid">
 		{% block content %}
 			{% if user %}
 				<h1>Welcome, {{user.fname}}!</h1>
@@ -12,6 +13,7 @@
 				<h1>Welcome to HopsEx: <small>The world's #1 beer exchange</small></h1>
 			{% endif %}
 		{% endblock %}
+		</div>
 		<footer id="footer">
 			{% include 'footer.twig' %}
 			{% block footer %}
