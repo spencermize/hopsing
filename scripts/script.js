@@ -78,12 +78,23 @@ $app.controller('KegCreate',function($scope,$http,$modal) {
     });
   };	
 });
-$app.controller('ModalMsgInstance',function($scope,$modalInstance,$sce,response){
+$app.controller('ModalMsgInstance',function($scope,$modalInstance,$sce,$http,response,keg){
 	$scope.title = response.title || "Success";
 	$scope.msg = $sce.trustAsHtml(response.msg);
-	$scope.ok = function () {
+	$scope.cancel = function (){
+		$modalInstance.close();
+	}
+	$scope.ok = function () {	
 		$modalInstance.close();
 	};
+	$scope.buyKeg = function (){
+		$http({
+			method: 'get',
+			url: '/api/buy/keg/' + keg.id + "?price=" + $scope.newKeg.price
+		}).success(function(response){
+			$modalInstance.close();			
+		});
+	}
 })
 $app.controller('BeerStyleList',function($scope,$http){
 	$http({
@@ -101,7 +112,7 @@ $app.controller('KegList',function($scope,$http){
 		$scope.kegs = response.results;
 	});
 });
-$app.controller('BuyShare',function($scope,$http,$modal){
+$app.controller('BuyShare',function($scope,$http,$modal,$attrs){
     $scope.buy = function(){
 		var modalInstance = $modal.open({
 			templateUrl: 'ModalContent.html',
@@ -109,8 +120,12 @@ $app.controller('BuyShare',function($scope,$http,$modal){
 			resolve: {
 				response: function(){
 					return {
-						msg: "<input type='text' class='form-control'></input>",
 						title: 'Buy a Share'
+					}
+				},
+				keg: function(){
+					return {
+						id: $attrs.kid
 					}
 				}
 			}

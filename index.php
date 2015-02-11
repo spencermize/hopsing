@@ -47,6 +47,21 @@ $app->group('/api','APIrequest',function() use($app){
 			}
 		}
 	});
+	$app->get('/buy/keg/:id',function($id) use ($app){
+		$uid = $app->getCookie('_hopsauth');
+		$user = R::load( 'user', $uid );
+		$keg = R::load( 'keg', $id );
+		if(count($keg->ownShareList && $app->request->get("price"))){
+			$share = array_shift($keg->ownShareList);
+			print_r($keg->ownShareList);
+			//$share->purchasePrice = $app->request->get("price");
+			//$user->ownShareList[] = $share;
+			R::store($keg);
+			R::store($user);
+			$app->render(200,array("msg"=>"Success"));
+		}
+		$app->render(500,array("msg"=>"Unable to complete transaction"));
+	});
 	$app->get('/brewsearch',function() use($app){
 		$q = $app->request->get("q");
 		$ret = array("results" => brewerydb_lookup('search',array("q"=>$q,"type"=>"beer")));
