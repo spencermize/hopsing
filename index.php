@@ -105,6 +105,59 @@ $app->group('/api','APIrequest',function() use($app){
 			'msg' => $msg
 		));			
 	});	
+	
+	$app->post('/tastings(/:id)', function ($id = -1) use($app){
+		$msg = "";
+		$num = 200;
+		$error = false;
+		$vars = 'host,style,location,date,guests';
+
+		if($id==-1){
+			$tasting = R::dispense( 'tasting' );
+			$tasting->import($app->request->params(), $vars);
+			$host = $app->request->post("host");
+			$style = $app->request->post("style");
+			$location = $app->request->post("location");
+			$date = $app->request->post("date");
+			$guests = $app->request->post("guests");
+			$id = R::store( $tasting );
+			$msg = "New tasting created.";
+		}else{
+			$tasting = R::load( 'tasting', $id );
+			if($tasting->ID){
+				$tasting->import($app->request->params(), $vars);
+				$id = R::store( $tasting );
+				$msg = "Tasting updated.";					
+			}else{
+				$error = true;
+				$msg = "Sorry, tasting was not found.";
+				$num = 404;
+			}
+		}
+
+		$app->render($num,array(
+			'id' => $id,
+			'error' => $error,
+			'msg' => $msg
+		));			
+	});	
+	$app->get('/tastings(/:id)', function ($id = -1) use($app){
+		if($id==-1){
+			$tastings = R::findAll( 'tasting' );
+			$tastings = R::exportAll( $tastings );
+			$app->render(200,array("results" => $tastings));
+		}else{
+			$tasting = R::load( 'tasting', $id );
+			if($tasting->ID){
+				$app->render(200,$tasting->export());
+			}else{
+				$app->render(404,array(
+					"error" => true,
+					"msg" => "No tasting exists"
+				));
+			}
+		}
+	});
 });
 
 $app->get('/login',function() use($app){

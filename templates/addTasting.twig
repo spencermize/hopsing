@@ -1,0 +1,63 @@
+{% extends 'base.twig' %}
+{% block content %}
+<h1>Join an Open Tasting!</h1>
+<div class="row" ng-controller="TastingList">
+	<div class="col-sm-6 col-md-4" data-category="view" ng-repeat="tasting in tastings">
+		<div class="thumbnail" ng-controller="JoinTasting" kid="// tasting.id //">
+			<h3>Tasting ID: // tasting.id //</h3>
+			<p ng-show="tasting.style"><strong>Style:</strong>// tasting.style // </p>
+			<p ng-show="tasting.host"><strong>Host:</strong>// tasting.host // </p>
+			<p ng-show="tasting.location"><strong>Location:</strong> // tasting.location // </p>
+			<p ng-show="tasting.date"><strong>Date:</strong> // tasting.date // </p>	
+			<p ng-show="tasting.guests"><strong>Guests:</strong> // tasting.guests // </p>	
+			<div class="col-md-6 pull-right">
+				<input type="submit" class="btn btn-primary" value="Join!" ng-click="join()"></input>
+			</div>	
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="ModalContent.html">
+	<div class="modal-header">
+		<h3 class="modal-title">// title //</h3>
+	</div>
+	<div class="modal-body">
+		<div class="input-group col-sm-10">
+			<span class="input-group-addon">$</span>
+			<input type="number" class="form-control" ng-model="newKeg.price" placeholder="400">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+		<button class="btn btn-primary" ng-click="buyKeg()">OK</button>
+	</div>
+</script>
+
+<form class="col-md-6" ng-controller="TastingCreate" ng-addGuests="addGuests()" ng-submit="postTastings()">
+{#     <pre>Model: // newTasting | json //</pre> #}
+	<h1>Let's Start a Tasting! </h1>
+	<input type="text" class="form-control" ng-model="newTasting.host" placeholder={{user.fname}}>
+	<label for="newTasting.style" class="col-sm-2 control-label">Style</label>
+	<select ng-init="newTasting.style = beerSytles[0].value" ng-model="newTasting.style" class="form-control" placeholder=beerSytles[0].label>
+		<option ng-repeat="style in beerSytles" value="// style.value //"> //style.label //</option>
+	</select>
+	<input type="text" class="form-control" ng-model="newTasting.location" placeholder="Location">
+	<input type="text" class="form-control" ng-model="newTasting.date" placeholder="Date">
+	<input type="text" class="form-control" ng-model="newTasting.guests" placeholder="Guests">
+	<class="col-md-6" ng-controller="AddGuests" kid="// tasting.id //">
+		<input type="submit" class="form-control btn btn-primary" value="Add Guests" ng-click="add()"></input>
+	</class>
+	<input type="submit" class="form-control btn btn-primary">
+	
+    <script type="text/ng-template" id="ModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">// title //</h3>
+        </div>
+        <div class="modal-body">
+			// msg //
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+        </div>
+    </script>
+</form>
+{% endblock %}
