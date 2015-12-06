@@ -78,7 +78,7 @@ $app.controller('KegCreate',function($scope,$http,$modal) {
     });
   };	
 });
-$app.controller('ModalMsgInstance',function($scope,$modalInstance,$sce,$http,response,keg){
+$app.controller('ModalMsgInstance',function($scope,$modalInstance,$sce,$http,response){
 	$scope.title = response.title || "Success";
 	$scope.msg = $sce.trustAsHtml(response.msg);
 	$scope.cancel = function (){
@@ -121,104 +121,6 @@ $app.controller('BuyShare',function($scope,$http,$modal,$attrs){
 				response: function(){
 					return {
 						title: 'Buy a Share'
-					}
-				},
-				keg: function(){
-					return {
-						id: $attrs.kid
-					}
-				}
-			}
-		});	
-	}
-});
-$app.controller('TastingCreate',function($scope,$http,$modal) {
-	$scope.beerSytles = [
-		{ label: 'Ale', value: "Ale" },
-		{ label: 'Lager', value: "Lager" }
-	];
-	// $scope.onSelect = function ($item, $model, $label) {
-		// $scope.newTasting.description = $item.description || "";
-		// if($item.labels){
-			// $scope.newTasting.label = $item.labels.large;
-		// }else{
-			// $scope.newTasting.label = "";
-		// }
-		// $scope.newTasting.open = "open";
-	// };
-	$scope.postTastings = function(val){
-		var t = $scope.newTasting;
-		return $http({
-			method: 'post',
-			url: '/api/tastings',
-			transformRequest: function(obj) {
-				var str = [];
-				for(var p in obj)
-				str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-				return str.join("&");
-			},			
-			data: {
-				host: t.host,
-				style: t.style,
-				location: t.location,
-				date: t.date,
-				guests: t.guests
-			},
-			headers: {'Content-Type' : 'application/x-www-form-urlencoded'}
-		}).success(function(response){
-			$scope.response = response;
-			$scope.open();
-		});
-	}
-	$scope.open = function () {
-		var modalInstance = $modal.open({
-		  templateUrl: 'ModalContent.html',
-		  controller: 'ModalMsgInstance',
-		  resolve: {
-			response: function () {
-			  return $scope.response;
-			}
-		  }
-    });
-  };	
-});
-$app.controller('TastingList',function($scope,$http){
-	$http({
-		method: 'get',
-		url: '/api/tastings'
-	}).success(function(response){
-		$scope.tastings = response.results;
-	});
-});
-$app.controller('AddGuests',function($scope,$http,$modal,$attrs){
-    $scope.add = function(){
-		var modalInstance = $modal.open({
-			templateUrl: 'ModalContent.html',
-			controller: 'ModalMsgInstance',
-			resolve: {
-				response: function(){
-					return {
-						title: 'Add Guests'
-					}
-				},
-				keg: function(){
-					return {
-						id: $attrs.kid
-					}
-				}
-			}
-		});	
-	}
-});
-$app.controller('JoinTasting',function($scope,$http,$modal,$attrs){
-    $scope.join = function(){
-		var modalInstance = $modal.open({
-			templateUrl: 'ModalContent.html',
-			controller: 'ModalMsgInstance',
-			resolve: {
-				response: function(){
-					return {
-						title: 'Join Tasting'
 					}
 				},
 				keg: function(){

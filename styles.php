@@ -1,10 +1,13 @@
 <?php
 require "vendor/leafo/scssphp/scss.inc.php";
 
-$scss = new scssc();
-$scss->setFormatter("scss_formatter_compressed");
+use Leafo\ScssPhp\Server;
+use Leafo\ScssPhp\Compiler;
 
-$server = new scss_server("styles", null, $scss);
+$scss = new Compiler();
+//$scss->setFormatter("scss_formatter_compressed");
+
+$server = new Server("styles", null, $scss);
 $server->serve();
 
 ?>

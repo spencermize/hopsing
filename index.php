@@ -89,6 +89,7 @@ $app->group('/api','APIrequest',function() use($app){
 		}else{
 			$keg = R::load( 'keg', $id );
 			if($keg->ID){
+				//print_r($app->request->params());
 				$keg->import($app->request->params(), $vars);
 				$id = R::store( $keg );
 				$msg = "Keg updated.";					
